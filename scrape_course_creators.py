@@ -39,16 +39,20 @@ SEARCH_TERMS = [
     # fitness / nutrition coaches
     "online fitness coach", "nutrition coaching program", "transformation coach",
     "strength training course", "macro coaching",
+    # new niches
+    "real estate investing course", "copywriting course", "social media marketing course",
+    "personal finance educator", "ecommerce course creator", "life coach program",
+    "mindset coach course",
 ]
 
 # Qualification filters
 SUB_MIN = 10_000        # ignore tiny channels with no budget
 SUB_MAX = 800_000       # ignore mega channels (different buyer, in-house teams)
 RECENT_DAYS = 45        # last 4 uploads must fall within this window = posts regularly
-MIN_RECENT_UPLOADS = 3  # of last 4 videos, at least this many within RECENT_DAYS
+MIN_RECENT_UPLOADS = 2  # of last 4 videos, at least this many within RECENT_DAYS
 
 RESULTS_PER_TERM = 50   # max 50 per search call (1 page). Bump pages below if needed.
-PAGES_PER_TERM = 1      # each page = 100 quota units. 15 terms x 1 page = 1500 units.
+PAGES_PER_TERM = 2      # each page = 100 quota units. 22 terms x 2 pages = 4400 units.
 
 OUTPUT = "course_creator_leads.csv"
 
