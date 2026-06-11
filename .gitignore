@@ -1,0 +1,9 @@
+# lead output -- contains scraped data, keep out of the repo
+course_creator_leads.csv
+*.csv
+
+# secrets
+.env
+
+__pycache__/
+*.pyc
