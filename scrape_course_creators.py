@@ -59,6 +59,8 @@ OUTPUT = "course_creator_leads.csv"
 # ============================================================
 # Platform detection
 # ============================================================
+COURSE_PLATFORMS = {"Kajabi", "Teachable", "Skool", "Podia", "Gumroad"}
+
 PLATFORM_PATTERNS = {
     "Kajabi":   re.compile(r"(?:[\w-]+\.)?mykajabi\.com|kajabi\.com", re.I),
     "Teachable":re.compile(r"(?:[\w-]+\.)?teachable\.com|thinkific\.com", re.I),
@@ -233,6 +235,10 @@ def main():
 
         if not platforms:
             continue  # no monetization signal anywhere -> skip
+
+        # Patreon alone is not a qualifying signal (community/tip jar, not a course platform)
+        if not (COURSE_PLATFORMS & set(platforms)):
+            continue
 
         last_upload = max(dates).date().isoformat() if dates else ""
         leads.append({
