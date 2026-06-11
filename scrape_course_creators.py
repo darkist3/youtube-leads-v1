@@ -127,22 +127,38 @@ def get_channel_details(channel_ids):
     return out
 
 
-def get_recent_upload_dates(uploads_playlist_id, n=4):
-    """Return list of publishedAt datetimes for last n uploads."""
+def get_recent_uploads(uploads_playlist_id, n=4):
+    """Return (dates, video_ids) for the last n uploads."""
     data = api_get("playlistItems", {
         "part": "snippet", "playlistId": uploads_playlist_id, "maxResults": n,
     })
     if not data:
-        return []
-    dates = []
+        return [], []
+    dates, video_ids = [], []
     for item in data.get("items", []):
-        pub = item.get("snippet", {}).get("publishedAt")
+        snip = item.get("snippet", {})
+        pub = snip.get("publishedAt")
         if pub:
             try:
                 dates.append(datetime.fromisoformat(pub.replace("Z", "+00:00")))
             except ValueError:
                 pass
-    return dates
+        vid = snip.get("resourceId", {}).get("videoId")
+        if vid:
+            video_ids.append(vid)
+    return dates, video_ids
+
+
+def get_video_descriptions(video_ids):
+    """Fetch snippet for up to 50 video IDs; return list of description strings."""
+    if not video_ids:
+        return []
+    data = api_get("videos", {
+        "part": "snippet", "id": ",".join(video_ids[:50]),
+    })
+    if not data:
+        return []
+    return [item.get("snippet", {}).get("description", "") for item in data.get("items", [])]
 
 
 def detect_platforms(text):
@@ -195,20 +211,28 @@ def main():
         if subs < SUB_MIN or subs > SUB_MAX:
             continue
 
-        # platform signal (check description; YouTube API does not expose all links cheaply)
-        desc = snip.get("description", "")
-        platforms = detect_platforms(desc)
-        if not platforms:
-            continue  # no monetization signal in description -> skip
-
-        # activity signal
+        # activity signal + collect video IDs for description check below
         uploads_pl = content.get("uploads")
         if not uploads_pl:
             continue
-        dates = get_recent_upload_dates(uploads_pl, n=4)
+        dates, video_ids = get_recent_uploads(uploads_pl, n=4)
         recent = sum(1 for d in dates if d >= cutoff)
         if recent < MIN_RECENT_UPLOADS:
             continue
+
+        # platform signal: channel description first, then fall back to video descriptions
+        ch_desc = snip.get("description", "")
+        platforms = detect_platforms(ch_desc)
+        platform_source = ch_desc  # text to pull course URL from
+
+        if not platforms:
+            video_descs = get_video_descriptions(video_ids[:3])
+            combined = "\n".join(video_descs)
+            platforms = detect_platforms(combined)
+            platform_source = combined
+
+        if not platforms:
+            continue  # no monetization signal anywhere -> skip
 
         last_upload = max(dates).date().isoformat() if dates else ""
         leads.append({
@@ -217,11 +241,11 @@ def main():
             "subscribers": subs,
             "videos": stats.get("videoCount", ""),
             "platform": ", ".join(platforms),
-            "course_url": extract_course_url(desc),
+            "course_url": extract_course_url(platform_source),
             "last_upload": last_upload,
             "recent_uploads_45d": recent,
             "country": snip.get("country", ""),
-            "description_snippet": desc[:160].replace("\n", " "),
+            "description_snippet": ch_desc[:160].replace("\n", " "),
         })
         time.sleep(0.1)
 
