@@ -30,20 +30,18 @@ API_KEY = os.environ.get("YOUTUBE_API_KEY", "")   # export YOUTUBE_API_KEY=... ;
 
 # Seed search terms per niche. Add/remove freely.
 SEARCH_TERMS = [
-    # agency / ecom operators
-    "smma agency course", "cold email lead generation course", "ai automation agency course",
-    "youtube automation course", "amazon fba course", "shopify dropshipping course",
-    "etsy shop course", "print on demand course",
-    # creative / technical skills
-    "video editing course creator", "graphic design course", "photography course online",
-    "music production course", "ui ux design course", "web development bootcamp",
-    "coding course creator",
-    # coaching / personal development
-    "career coaching program", "public speaking course", "dating coach for men",
-    "confidence coaching program", "productivity coaching",
-    # health / wellness
-    "yoga teacher training online", "meditation teacher course", "running coach online",
-    "calisthenics program",
+    # sales / offers / personal brand
+    "high ticket closing course", "appointment setting course", "personal branding course",
+    "linkedin lead generation course", "email marketing course", "sales funnel course",
+    # money / local business models
+    "wholesaling real estate course", "airbnb arbitrage course", "credit repair business course",
+    "trucking business course", "cleaning business course", "vending machine business course",
+    # content / creator economy
+    "faceless youtube channel course", "ai content creation course", "podcast launch course",
+    "notion course creator", "freelance writing course", "voiceover course",
+    # health / skills
+    "weight loss coaching program", "hormone health coach", "marathon training coach",
+    "guitar lessons course online",
 ]
 
 # Qualification filters
