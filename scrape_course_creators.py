@@ -30,18 +30,10 @@ API_KEY = os.environ.get("YOUTUBE_API_KEY", "")   # export YOUTUBE_API_KEY=... ;
 
 # Seed search terms per niche. Add/remove freely.
 SEARCH_TERMS = [
-    # sales / offers / personal brand
-    "high ticket closing course", "appointment setting course", "personal branding course",
-    "linkedin lead generation course", "email marketing course", "sales funnel course",
-    # money / local business models
-    "wholesaling real estate course", "airbnb arbitrage course", "credit repair business course",
-    "trucking business course", "cleaning business course", "vending machine business course",
-    # content / creator economy
-    "faceless youtube channel course", "ai content creation course", "podcast launch course",
-    "notion course creator", "freelance writing course", "voiceover course",
-    # health / skills
-    "weight loss coaching program", "hormone health coach", "marathon training coach",
-    "guitar lessons course online",
+    # agency / AI vein (best-converting batch so far)
+    "ai agency course", "automation agency course", "lead generation agency course",
+    "saas course creator", "newsletter business course", "content agency course",
+    "smma mentorship program", "google ads agency course",
 ]
 
 # Qualification filters
@@ -51,7 +43,7 @@ RECENT_DAYS = 45        # last 4 uploads must fall within this window = posts re
 MIN_RECENT_UPLOADS = 2  # of last 4 videos, at least this many within RECENT_DAYS
 
 RESULTS_PER_TERM = 50   # max 50 per search call (1 page). Bump pages below if needed.
-PAGES_PER_TERM = 2      # each page = 100 quota units. 22 terms x 2 pages = 4400 units.
+PAGES_PER_TERM = 2      # each page = 100 quota units. ~22 terms x 2 pages = 4400 units.
 
 OUTPUT = "course_creator_leads.csv"
 
