@@ -30,10 +30,29 @@ API_KEY = os.environ.get("YOUTUBE_API_KEY", "")   # export YOUTUBE_API_KEY=... ;
 
 # Seed search terms per niche. Add/remove freely.
 SEARCH_TERMS = [
-    # agency / AI vein (best-converting batch so far)
-    "ai agency course", "automation agency course", "lead generation agency course",
-    "saas course creator", "newsletter business course", "content agency course",
-    "smma mentorship program", "google ads agency course",
+    # service / local business models
+    "affiliate marketing course", "blogging business course", "kindle publishing course",
+    "self publishing course", "pressure washing business course", "landscaping business course",
+    "bookkeeping business course", "tax preparation business course", "notary signing agent course",
+    "drone business course", "real estate photography course", "wedding photography business course",
+    "stock photography course", "insurance agency training", "online tutoring business course",
+    # trading / investing (new angles)
+    "day trading academy program", "swing trading course", "futures trading course",
+    "dividend investing course", "tax lien investing course",
+    # fitness / health (new angles)
+    "bodybuilding coaching online", "powerlifting coaching program", "personal trainer business course",
+    "online nutrition certification course", "keto coaching program", "pilates instructor training",
+    "mobility coaching program",
+    # creative / skills
+    "digital art course online", "procreate art course", "blender 3d course",
+    "after effects course", "wedding videography course", "singing lessons course online",
+    "piano course online", "beat making course",
+    # personal development / coaching
+    "relationship coaching program", "executive coaching program", "leadership coaching course",
+    "spiritual coaching program", "parenting coach course",
+    # tech / data / AI
+    "no code course", "data science bootcamp course", "prompt engineering course",
+    "power bi course",
 ]
 
 # Qualification filters
